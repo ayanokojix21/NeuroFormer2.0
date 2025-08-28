@@ -6,9 +6,9 @@ class NeuroFormerDataset(Dataset):
         self.input_ids = []
         self.target_ids = []
 
-        token_ids = tokenizer.encode(text)
+        token_ids = tokenizer.encode(text).ids
 
-        assert len(token_ids) > max_length, "Number of tokenized inputs must be greater than max_length"
+        assert len(token_ids) > max_length, f"Number of tokenized inputs ({len(token_ids)}) must be greater than max_length ({max_length})"
 
         for i in range(0, len(token_ids) - max_length, stride):
             input_chunk = token_ids[i:i + max_length]
