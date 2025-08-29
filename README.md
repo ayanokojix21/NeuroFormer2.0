@@ -75,13 +75,6 @@ NeuroFormer2.0/
 - Increase BPE vocab size → improve handling of rare words.
 - Experiment with new attention mechanisms.
 - Longer training schedule for stability & better convergence.
-
----
-
-## License  
-
-- This project is licensed under the [MIT License](LICENSE).  
-
 ---
 
 ## Acknowledgements  
