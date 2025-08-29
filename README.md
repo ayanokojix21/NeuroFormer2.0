@@ -79,5 +79,6 @@ NeuroFormer2.0/
 
 ## Acknowledgements  
 
-- This project is inspired by the work of **Andrej Karpathy**, **Sebastian Raschka**, and the open-source ML community.  
+- This project is inspired by the work of **[Andrej Karpathy](https://www.youtube.com/@AndrejKarpathy)**, **[Sebastian Raschka](https://www.youtube.com/@sebastianraschka)**, and the open-source ML community.
+
 ---
