@@ -1,0 +1,9 @@
+torch
+numpy
+pandas
+matplotlib
+regex
+streamlit
+scikit-learn
+transformers
+datasets
