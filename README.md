@@ -1,6 +1,6 @@
 # NeuroFormer 2.0 
 
-NeuroFormer 2.0 is a **subword-level Transformer chatbot** built from scratch in **PyTorch**.  
+NeuroFormer 2.0 is a **subword-level Transformer Architecture** built from scratch in **PyTorch**.  
 It includes a custom **Byte Pair Encoding (BPE) tokenizer**, a manually implemented **Transformer architecture**, and a **Streamlit UI**.  
 The model is **pretrained on Shakespeare’s works** and **fine-tuned on DailyDialog** to learn conversational patterns.
 
