@@ -2,7 +2,7 @@
 
 NeuroFormer 2.0 is a **subword-level Transformer Architecture** built from scratch in **PyTorch**.  
 It includes a custom **Byte Pair Encoding (BPE) tokenizer**, a manually implemented **Transformer architecture**, and a **Streamlit UI**.  
-The model is **pretrained on Shakespeare’s works** and **fine-tuned on DailyDialog** to learn conversational patterns.
+The model is trained on **Cornell Movie-Dialog Corpus** to learn conversational patterns.
 
 ---
 
@@ -22,9 +22,25 @@ https://neuroformer.streamlit.app/
 ---
 
 ## Training Summary
-- **Tokenizer vocab size:** ~2,000 (subword-level)  
-- **Pretraining dataset:** Shakespeare’s works (~4MB text)  
-- **Fine-tuning dataset:** DailyDialog (dialogues)  
+
+### Tokenizer
+- **Type:** Byte Pair Encoding (BPE)
+- **Vocabulary size:** ~1,000 subword tokens
+- **Training corpus:** Dialogue dataset + conversational text
+
+### Model
+- **Architecture:** Decoder-only Transformer
+- **Sequence length:** 512
+- **Training type:** From scratch
+- **Final validation loss:** **2.43**
+- **Perplexity:** ~**11.4**
+
+### Dataset
+- **Primary dataset:** Dialogue-style conversational corpus  
+- **Focus:** Natural language flow, turn-based conversation, coherence  
+- **Train/validation split:** Custom curated split  
+
+> Earlier Shakespeare-based experiments are preserved for reference and moved to `deprecated/`.
 
 ---
 
@@ -35,14 +51,14 @@ https://neuroformer.streamlit.app/
 NeuroFormer2.0/
 │
 ├── data/                           # Datasets + preprocessing
-│ ├── shakespeare.txt               # Raw Shakespeare dataset
-│ ├── shakespeare_train.txt         # Train split for Shakespeare model
-│ ├── shakespeare_val.txt           # Validation split for Shakespeare model
-│ ├── chatbot_train.txt             # Train split for chatbot fine-tuning
-│ ├── chatbot_valid.txt             # Validation split for chatbot fine-tuning
+│ ├── dialogues.txt                 # Raw Cornell dataset
+│ ├── train.txt                     # Train split for Cornell model
+│ ├── val.txt                       # Validation split for Cornell model
 │ ├── dataloader.py                 # Data loading utilities
 │ └── DatasetPreprocessing.py       # Dataset cleaning & preprocessing
 │
+├── deprecated/                     # Older experiments & code 
+|
 ├── model/                          # Transformer model implementation
 │ ├── neuroformer.py                # Custom Transformer model
 │ └── NeuroFormer.ipynb             # Jupyter notebook for experiments
@@ -54,11 +70,9 @@ NeuroFormer2.0/
 │ ├── bpe_tokenizer.py              # Custom BPE tokenizer implementation
 │ └── init.py
 │
-├── training/                       # Training & fine-tuning
-│ ├── Shakespeare.ipynb             # Training Shakespeare text generator
-│ ├── Chatbot.ipynb                 # Fine-tuning on DailyDialog
-│ ├── shakespeare.pt                # Pretrained Shakespeare model weights
-│ └── chatbot.pt                    # Fine-tuned chatbot model weights
+├── training/                       # Training 
+│ ├── cornell-model-training.ipynb  # Training Cornell Script generator
+│ ├── best_model.pt                 # Best Model weights
 │
 ├── app.py                          # Streamlit chatbot UI
 ├── requirements.txt                # Project dependencies
@@ -71,7 +85,6 @@ NeuroFormer2.0/
 
 ## Future Improvements
 
-- Expand dataset → add larger & cleaner corpora.
 - Increase BPE vocab size → improve handling of rare words.
 - Experiment with new attention mechanisms.
 - Longer training schedule for stability & better convergence.
