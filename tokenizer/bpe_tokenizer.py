@@ -10,7 +10,7 @@ class BPETokenizer(nn.Module):
         self.vocab_size = vocab_size
         self.merges = {}
         self.vocab = {}
-        self.special_tokens = special_tokens or ["<pad>", "<unk>", "<bos>", "<eos>", "<user>", "<assistant>"]
+        self.special_tokens = special_tokens
         self.special_token_ids = {}
 
     # Find Consecutive Pairs

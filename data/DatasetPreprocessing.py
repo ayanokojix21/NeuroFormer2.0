@@ -1,52 +1,29 @@
-# Importing Libraries
-from datasets import load_dataset
-from dotenv import load_dotenv
-import os
-import re
+import random
 
-load_dotenv()
+INPUT_FILE = "./data/dialogues.txt"
+TRAIN_FILE = "./data/train.txt"
+VAL_FILE = "./data/val.txt"
+VAL_RATIO = 0.1
 
-token = os.getenv("HF_TOKEN")
+# 1. Read full file
+with open(INPUT_FILE, encoding="utf-8") as f:
+    text = f.read().strip()
 
-def clean_text(text):
-    text = text.replace("’", "'").replace("‘", "'").replace("“", '"').replace("”", '"')
-    text = re.sub(r"\s+", " ", text).strip()
-    text = text.encode("ascii", "ignore").decode()
-    return re.sub(r"[^a-zA-Z0-9\s.,!?;:'\"()\-\n]", "", text)
+# 2. Split by conversation
+conversations = text.split("\n\n")
+random.shuffle(conversations)
 
-with open("data/shakespeare.txt", "r", encoding="utf-8") as f:
-    text = clean_text(f.read())
+# 3. Split
+val_size = int(len(conversations) * VAL_RATIO)
+val_convs = conversations[:val_size]
+train_convs = conversations[val_size:]
 
-n = len(text)
-split_idx = int(n * 0.9)
+# 4. Write files
+with open(TRAIN_FILE, "w", encoding="utf-8") as f:
+    f.write("\n\n".join(train_convs))
 
-train_text = text[:split_idx]
-val_text = text[split_idx:]
+with open(VAL_FILE, "w", encoding="utf-8") as f:
+    f.write("\n\n".join(val_convs))
 
-print(f"Train chars: {len(train_text)}, Val chars: {len(val_text)}")
-
-with open("data/shakespeare_train.txt", "w", encoding="utf-8") as f:
-    f.write(train_text)
-
-with open("data/shakespeare_val.txt", "w", encoding="utf-8") as f:
-    f.write(val_text)
-    
-    
-ChatData = load_dataset("li2017dailydialog/daily_dialog", trust_remote_code=True, token=token)
-
-def format_chat_data(type, value):
-    with open(f"data/chatbot_{type}.txt", "w", encoding="utf-8") as f:
-        for dialog in value:
-            for i, utterance in enumerate(dialog):
-                cleaned = clean_text(utterance.strip())
-                if cleaned:
-                    tag = "<user>" if i % 2 == 0 else "<assistant>"
-                    f.write(f"{tag} {cleaned}\n")
-            f.write("\n")  
-
-# Splitting Dataset into Train, Validation Set
-ChatDataTrain = ChatData["train"]["dialog"] + ChatData["test"]["dialog"] # 90% Train Data
-ChatDataVal = ChatData["validation"]["dialog"] # 10% Validation Data
-
-format_chat_data('train', ChatDataTrain)
-format_chat_data('valid', ChatDataVal)
+print(f"Train conversations: {len(train_convs)}")
+print(f"Val conversations: {len(val_convs)}")
