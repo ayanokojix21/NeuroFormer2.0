@@ -7,7 +7,7 @@ The model is trained on **Cornell Movie-Dialog Corpus** to learn conversational 
 ---
 
 ## Features
-- **Custom BPE Tokenizer** – trained from scratch on Shakespeare dataset  
+- **Custom BPE Tokenizer** – trained from scratch on Cornell Movie-Dialog Corpus  
 - **Transformer architecture** – self-attention, feed-forward, positional encoding, layer normalization   
 - **Streamlit UI** – user-friendly interface for chatting with the model  
 - **Fully modular design** – easy to extend, with cleaner code practices  
@@ -26,7 +26,7 @@ https://neuroformer.streamlit.app/
 ### Tokenizer
 - **Type:** Byte Pair Encoding (BPE)
 - **Vocabulary size:** ~1,000 subword tokens
-- **Training corpus:** Dialogue dataset + conversational text
+- **Training corpus:** Dialogue dataset 
 
 ### Model
 - **Architecture:** Decoder-only Transformer
